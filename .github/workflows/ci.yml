@@ -1,0 +1,46 @@
+name: tower_opentelemetry
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  MIX_ENV: test
+
+jobs:
+  compile:
+    name: Compile without warnings
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v4.0.1
+      - run: mix deps.get
+      - run: mix compile --warnings-as-errors
+
+  test:
+    name: Test
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v4.0.1
+      - run: mix deps.get
+      - run: mix test
+
+  format:
+    name: Check format with Quokka
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v4.0.1
+      - run: mix deps.get
+      - run: mix format --check-formatted
+
+  credo:
+    name: Check linting issues with Credo
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jdx/mise-action@v4.0.1
+      - run: mix deps.get
+      - run: mix credo

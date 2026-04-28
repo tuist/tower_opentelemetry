@@ -1,0 +1,18 @@
+[agent]
+kind = "opencode"
+model = "fireworks-ai/accounts/fireworks/models/kimi-k2p5"
+
+[defaults]
+base = "origin/main"
+max_concurrency = 2
+fail_on = "high"
+
+[[reviews]]
+name = "default"
+prompt = """
+Review changes for Elixir correctness, OTP/concurrency soundness, and
+adherence to the OpenTelemetry semantic conventions for exceptions
+(https://opentelemetry.io/docs/specs/semconv/exceptions/).
+
+Skip style nits — Quokka and Credo cover those in CI.
+"""
