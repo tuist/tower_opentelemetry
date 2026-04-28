@@ -1,0 +1,12 @@
+[tools]
+elixir = "1.19.5"
+erlang = "28.4.3"
+
+[tasks.test]
+run = "mix test"
+
+[tasks.format]
+run = "mix format"
+
+[tasks.lint]
+run = "mix format --check-formatted"
