@@ -43,11 +43,11 @@ defmodule TowerOpentelemetry do
 
   @behaviour Tower.Reporter
 
-  require OpenTelemetry.Tracer
-
   alias OpenTelemetry.Span
   alias OpenTelemetry.Tracer
   alias TowerOpentelemetry.Attributes
+
+  require OpenTelemetry.Tracer
 
   @impl true
   def report_event(%Tower.Event{} = event) do

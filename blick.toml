@@ -1,0 +1,17 @@
+[agent]
+kind = "claude"
+model = "anthropic/claude-sonnet-4-5"
+
+[defaults]
+base = "origin/main"
+fail_on = "high"
+
+[[reviews]]
+name = "default"
+prompt = """
+Review changes for Elixir correctness, OTP/concurrency soundness, and
+adherence to the OpenTelemetry semantic conventions for exceptions
+(https://opentelemetry.io/docs/specs/semconv/exceptions/).
+
+Skip style nits — Quokka and Credo cover those in CI.
+"""

@@ -47,8 +47,7 @@ defmodule TowerOpentelemetry.Attributes do
 
   def status_message(%Tower.Event{reason: reason}), do: inspect(reason)
 
-  defp exception_type(reason) when is_exception(reason),
-    do: reason.__struct__ |> Module.split() |> Enum.join(".")
+  defp exception_type(reason) when is_exception(reason), do: reason.__struct__ |> Module.split() |> Enum.join(".")
 
   defp exception_type(reason), do: inspect(reason)
 

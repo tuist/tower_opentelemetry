@@ -28,6 +28,8 @@ defmodule TowerOpentelemetry.MixProject do
       {:tower, "~> 0.8"},
       {:opentelemetry_api, "~> 1.4"},
       {:opentelemetry, "~> 1.5", only: [:dev, :test]},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:quokka, "~> 2.12", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.34", only: :dev, runtime: false}
     ]
   end
