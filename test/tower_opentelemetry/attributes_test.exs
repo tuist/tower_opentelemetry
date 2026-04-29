@@ -26,10 +26,27 @@ defmodule TowerOpentelemetry.AttributesTest do
 
       assert {:"exception.type", "ArgumentError"} in attrs
       assert {:"exception.message", "bad argument"} in attrs
+      assert {:"exception.escaped", true} in attrs
 
       stacktrace_attr = Keyword.get(attrs, :"exception.stacktrace")
       assert is_binary(stacktrace_attr)
       assert stacktrace_attr =~ "attributes_test.exs"
+    end
+
+    test "omits exception.stacktrace when no stacktrace is available" do
+      event = %Tower.Event{
+        id: "01HZ",
+        kind: :error,
+        level: :error,
+        reason: %RuntimeError{message: "boom"},
+        stacktrace: nil,
+        datetime: DateTime.utc_now(),
+        similarity_id: 0
+      }
+
+      attrs = Attributes.exception_attributes(event)
+      refute Keyword.has_key?(attrs, :"exception.stacktrace")
+      assert {:"exception.escaped", true} in attrs
     end
   end
 
@@ -48,7 +65,8 @@ defmodule TowerOpentelemetry.AttributesTest do
       attrs = Attributes.exception_attributes(event)
       assert Keyword.get(attrs, :"exception.type") == "Exit"
       assert Keyword.get(attrs, :"exception.message") == ":killed"
-      assert Keyword.get(attrs, :"exception.stacktrace") == ""
+      refute Keyword.has_key?(attrs, :"exception.stacktrace")
+      assert {:"exception.escaped", true} in attrs
     end
 
     test "maps :throw reason to type Throw" do
