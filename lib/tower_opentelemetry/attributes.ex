@@ -14,16 +14,16 @@ defmodule TowerOpentelemetry.Attributes do
     [
       {:"exception.type", exception_type(reason)},
       {:"exception.message", exception_message(reason)},
-      {:"exception.stacktrace", format_stacktrace(stacktrace)}
-    ]
+      {:"exception.escaped", true}
+    ] ++ stacktrace_attribute(stacktrace)
   end
 
   def exception_attributes(%Tower.Event{kind: kind, reason: reason, stacktrace: stacktrace}) do
     [
       {:"exception.type", non_error_type(kind)},
       {:"exception.message", inspect(reason)},
-      {:"exception.stacktrace", format_stacktrace(stacktrace)}
-    ]
+      {:"exception.escaped", true}
+    ] ++ stacktrace_attribute(stacktrace)
   end
 
   @doc """
@@ -59,7 +59,7 @@ defmodule TowerOpentelemetry.Attributes do
   defp non_error_type(:message), do: "Message"
   defp non_error_type(other), do: other |> Atom.to_string() |> String.capitalize()
 
-  defp format_stacktrace(nil), do: ""
-  defp format_stacktrace([]), do: ""
-  defp format_stacktrace(stacktrace), do: Exception.format_stacktrace(stacktrace)
+  defp stacktrace_attribute(nil), do: []
+  defp stacktrace_attribute([]), do: []
+  defp stacktrace_attribute(stacktrace), do: [{:"exception.stacktrace", Exception.format_stacktrace(stacktrace)}]
 end

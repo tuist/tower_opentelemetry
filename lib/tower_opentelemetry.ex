@@ -28,7 +28,9 @@ defmodule TowerOpentelemetry do
     * `exception.message` — `Exception.message/1` for exceptions, otherwise
       `inspect/1` of the reason.
     * `exception.stacktrace` — `Exception.format_stacktrace/1`, when a
-      stacktrace is available.
+      stacktrace is available. Omitted otherwise, per the spec.
+    * `exception.escaped` — always `true`, since Tower only reports
+      exceptions that escaped their original scope.
 
   In addition, `event.id`, `event.kind` and `event.level` are attached for
   correlation with Tower's normalized event stream.
