@@ -1,6 +1,7 @@
 [tools]
 elixir = "1.19.5"
 erlang = "28.4.3"
+git-cliff = "2.12.0"
 
 [tasks.test]
 run = "mix test"
