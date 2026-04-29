@@ -13,7 +13,7 @@ jobs:
     name: Compile without warnings
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: jdx/mise-action@v4.0.1
       - run: mix deps.get
       - run: mix compile --warnings-as-errors
@@ -22,7 +22,7 @@ jobs:
     name: Test
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: jdx/mise-action@v4.0.1
       - run: mix deps.get
       - run: mix test
@@ -31,7 +31,7 @@ jobs:
     name: Check format with Quokka
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: jdx/mise-action@v4.0.1
       - run: mix deps.get
       - run: mix format --check-formatted
@@ -40,7 +40,7 @@ jobs:
     name: Check linting issues with Credo
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: jdx/mise-action@v4.0.1
       - run: mix deps.get
       - run: mix credo
